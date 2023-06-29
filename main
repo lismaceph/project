@@ -1,0 +1,78 @@
+class TodoItem:
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+        self.completed = False
+    
+    def complete(self):
+        self.completed = True
+    
+    def display_info(self):
+        print(f'Title: {self.title}')
+        print(f'Description: {self.description}')
+        print(f'Completed: {"Yes" if self.completed else "No"}')
+
+class TodoList:
+    def __init__(self):
+        self.items = []
+    
+    def add_item(self, title, description):
+        item = TodoItem(title, description)
+        self.items.append(item)
+        print(f'Todo item "{title}" added.')
+    
+    def remove_item(self, title):
+        for item in self.items:
+            if item.title == title:
+                self.items.remove(item)
+                print(f'Todo item "{title}" removed.')
+                return
+        
+        print(f'Todo item "{title}" not found.')
+    
+    def complete_item(self, title):
+        for item in self.items:
+            if item.title == title:
+                item.complete()
+                print(f'Todo item "{title}" marked as completed.')
+                return
+        
+        print(f'Todo item "{title}" not found.')
+    
+    def display_items(self):
+        if self.items:
+            print('Todo List:')
+            for item in self.items:
+                item.display_info()
+                print('---')
+        else:
+            print('No items found in the todo list.')
+    
+todo_list = TodoList()
+
+while True:
+    print('\nTodo List Management')
+    print('1. Add item')
+    print('2. Remove item')
+    print('3. Complete item')
+    print('4. Display items')
+    print('5. Exit')
+
+    choice = input('Select an option: ')
+
+    if choice == '1':
+        title = input('Enter the item title: ')
+        description = input('Enter the item description: ')
+        todo_list.add_item(title, description)
+    elif choice == '2':
+        title = input('Enter the item title to remove: ')
+        todo_list.remove_item(title)
+    elif choice == '3':
+        title = input('Enter the item title to mark as completed: ')
+        todo_list.complete_item(title)
+    elif choice == '4':
+        todo_list.display_items()
+    elif choice == '5':
+        break
+    else:
+        print('Invalid choice. Please try again.')
